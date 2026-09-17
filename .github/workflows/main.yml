@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,16 +31,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Fix executable permissions
+        run: chmod +x node_modules/.bin/vite node_modules/.bin/esbuild
+
       - name: Build frontend
         run: npm run build
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload frontend
+      - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist
+          path: ./dist
 
   deploy:
     needs: build
