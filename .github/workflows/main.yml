@@ -35,7 +35,7 @@ jobs:
         run: chmod +x node_modules/.bin/vite node_modules/.bin/esbuild
 
       - name: Build frontend
-        run: npx vite build --root frontend
+        run: npx vite build frontend
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
