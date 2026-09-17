@@ -1,7 +1,8 @@
 import {describe, test, expect} from 'vitest';
 import {RasterDEMTileWorkerSource} from './raster_dem_tile_worker_source.ts';
 import {DEMData} from '../data/dem_data.ts';
-import {type WorkerDEMTileParameters} from './worker_source.ts';
+
+import type {WorkerDEMTileParameters} from './worker_source.ts';
 
 describe('loadTile', () => {
     test('loads DEM tile', async () => {
@@ -15,6 +16,8 @@ describe('loadTile', () => {
         } as any as WorkerDEMTileParameters);
         expect(Object.keys(source.loaded)).toEqual(['0']);
         expect(data).toBeInstanceOf(DEMData);
+        expect(data.dim).toBe(4);
+        expect(data.stride).toBe(8);
     });
 });
 
