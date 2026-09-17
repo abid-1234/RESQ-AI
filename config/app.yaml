@@ -1,0 +1,38 @@
+# RESQ-AI application tuning (overridable via env)
+# All values are defaults for DEMO/RESEARCH; production overrides go in .env.
+
+risk:
+  weights:
+    hazard: 0.45
+    vulnerability: 0.35
+    exposure: 0.20
+  thresholds:
+    critical: 85
+    high: 70
+    watch: 45
+    monitor: 30
+  confidenceDefault: 88.5
+
+zones:
+  # Multipliers relative to redZoneRadius
+  orangeMultiplier: 1.5
+  yellowMultiplier: 2.2
+
+telemetry:
+  replayWindowMs: 300000 # 5 minutes — reject sensor payloads older than this
+  rateLimitPerSensorPerMinute: 60
+  validUnits: ["meters (gauge)", "mm/hour (Extreme)", "mm cumulative 24h", "% saturation", "degrees tilt shift", "g Peak Ground Acceleration (PGA)", "Hz frequency band", "hPa (Pressure Drop)", "km/h Gusts", "meters (Moderate)", "m3/s velocity"]
+
+alerts:
+  deduplicationWindowMs: 3600000 # 1h
+  escalationWindowMs: 900000     # 15m
+  defaultExpiryHours: 4
+  autoExpireHours: 4
+
+capacity:
+  waterLitersPerPersonPerDay: 45
+  sanitationThreshold: 75
+
+health:
+  degradedThresholdMs: 500
+  failedThresholdMs: 2000
