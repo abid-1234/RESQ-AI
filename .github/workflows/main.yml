@@ -1,4 +1,4 @@
-name: Deploy RESQ-AI
+name: Deploy RESQ-AI Frontend
 
 on:
   push:
@@ -19,6 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: frontend
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,11 +32,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm install
 
       - name: Fix executable permissions
-        run: chmod +x node_modules/.bin/vite node_modules/.bin/esbuild
+        run: chmod +x node_modules/.bin/vite
 
       - name: Build frontend
         run: npm run build
@@ -40,10 +44,10 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload website
+      - name: Upload frontend
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./frontend/dist
 
   deploy:
     needs: build
